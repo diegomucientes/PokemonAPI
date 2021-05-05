@@ -1,0 +1,4 @@
+  
+GET https://pokeapi.co/api/v2/pokemon/charmander
+Content-Type: application/json
+

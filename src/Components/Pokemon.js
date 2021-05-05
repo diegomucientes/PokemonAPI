@@ -1,22 +1,29 @@
-import React ,{useState}from 'react';
-import PokemonFetch from '../actions/PokemonFetch';
+
+import React, { useState } from 'react';
+import fetchPokemon from '../actions/fetchPokemon';
+
 
 const Pokemon = () => {
-    const [items, setitems] = useState([]);
-    const onClick=()=>{
-        PokemonFetch().then((arr)=>setitems(arr)).catch((err)=>alert(err));
-    }
-    const ListaDePokemones= items.map((item,key)=><li key={key}>{item.name}</li>)
-    console.log(items);
-    return (
-        <div>
-            <h1>Pokemon API</h1>
-            <button onClick={onClick}>Pokemon Fetch</button>
-            <ul>
-                {ListaDePokemones}
-            </ul>
-        </div>
-    );
-}
+    const [items, setItems] = useState([]);
 
+    const onClick = async () => {
+        try {
+            const arr =  await fetchPokemon();
+            setItems(arr);
+        } catch (err) {
+            alert(err);
+        }
+        
+    };
+
+    const listItems = items.map((name, key) => <li key={key}>{name}</li>);
+
+    return (
+        <section className="pokemon-section">
+            <h1>Pokemon API</h1>
+            <button onClick={onClick}>Fetch Pokemon</button>
+            <ul>{listItems}</ul>
+        </section>
+    );
+};
 export default Pokemon;
